@@ -84,7 +84,7 @@ describe('1 - Faça uma requisição para o endpoint `/planets` da API de Star W
   });
 });
 
-describe.only('2 - Filtre a tabela através de um texto, inserido num *campo de texto*, exibindo somente os planetas cujos nomes incluam o texto digitado', () => {
+describe('2 - Filtre a tabela através de um texto, inserido num *campo de texto*, exibindo somente os planetas cujos nomes incluam o texto digitado', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -249,7 +249,7 @@ describe('3 - Crie um filtro para valores numéricos', () => {
   });
 });
 
-describe('4 - Não utilize filtros repetidos', () => {
+describe.only('4 - Não utilize filtros repetidos', () => {
   beforeAll(mockFetch);
   beforeEach(cleanup);
 
@@ -273,7 +273,7 @@ describe('4 - Não utilize filtros repetidos', () => {
     fireEvent.change(await screen.findByTestId(COMPARISON_FILTER_SELECTOR), { target: { value: 'maior que' }});
     fireEvent.change(await screen.findByTestId(VALUE_FILTER_SELECTOR), { target: { value: '8000' }});
     fireEvent.click(await screen.findByTestId(BUTTON_FILTER_SELECTOR));
-    expect(await screen.findAllByRole(ROW_ROLE_SELECTOR)).toHaveLength(8);
+    expect(await screen.findAllByRole(ROW_ROLE_SELECTOR)).toHaveLength(11);
 
     column = await screen.findByTestId(COLUMN_FILTER_SELECTOR);
     expect(column).toHaveProperty('nodeName', 'SELECT');

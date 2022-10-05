@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContex';
 
 function Table() {
-  const { data, filterInput } = useContext(PlanetsContext);
+  const { data, filterInput, selectedFilter } = useContext(PlanetsContext);
   return (
     <div>
       <table>
@@ -27,6 +27,25 @@ function Table() {
           {data.filter((planeta) => (
             planeta.name.toLowerCase().includes(filterInput.toLowerCase())
           ))
+            .filter((linha) => {
+              const bools = [];
+              selectedFilter.forEach((filter) => {
+                console.log(linha);
+                console.log(filter.column);
+                console.log(filter.value);
+                if (filter.comparison === 'igual a') {
+                  bools.push(Number(linha[filter.column]) === Number(filter.value));
+                }
+                if (filter.comparison === 'menor que') {
+                  bools.push(Number(linha[filter.column]) < Number(filter.value));
+                }
+                if (filter.comparison === 'maior que') {
+                  bools.push(Number(linha[filter.column]) > Number(filter.value));
+                }
+                console.log(bools);
+              });
+              return bools.every((el) => el);
+            })
             .map((el, index) => (
               <tr key={ index }>
                 <td>{el.name}</td>

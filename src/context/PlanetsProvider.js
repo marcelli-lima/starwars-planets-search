@@ -6,6 +6,12 @@ function PlanetsProvider({ children }) {
   const api = 'https://swapi-trybe.herokuapp.com/api/planets/';
   const [data, setData] = useState([]);
   const [filterInput, setFilterInput] = useState('');
+  const [selected, setSelected] = useState({
+    column: '',
+    comparison: '',
+    value: '',
+  });
+  const [selectedFilter, setSelectedFilter] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +29,10 @@ function PlanetsProvider({ children }) {
     setData,
     setFilterInput,
     filterInput,
+    selected,
+    setSelected,
+    selectedFilter,
+    setSelectedFilter,
   };
 
   return (
