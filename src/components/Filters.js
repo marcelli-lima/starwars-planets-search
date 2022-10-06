@@ -6,7 +6,7 @@ const colun = [
 function Filters() {
   const { filterInput, setFilterInput } = useContext(PlanetsContext);
   const { selected, setSelected } = useContext(PlanetsContext);
-  const { setSelectedFilter } = useContext(PlanetsContext);
+  const { selectedFilter, setSelectedFilter } = useContext(PlanetsContext);
   const [columnOptions, setColumnOptions] = useState(colun);
 
   const handleClick = () => {
@@ -24,9 +24,18 @@ function Filters() {
     });
   };
 
+  const handleRemoveFilter = ({ target }) => {
+    console.log(target);
+    console.log(selectedFilter);
+    const newSavedFilters = selectedFilter
+      .filter((filter) => filter.column !== target.name);
+    setColumnOptions((prevState) => [...prevState, target.name]);
+    console.log(newSavedFilters);
+    setSelectedFilter(newSavedFilters);
+  };
+
   return (
     <>
-      <h3>Filtrar</h3>
       <input
         type="text"
         data-testid="name-filter"
@@ -79,6 +88,23 @@ function Filters() {
         Adicionar Filtro
 
       </button>
+
+      {selectedFilter.length
+        ? selectedFilter.map((filter, index) => (
+          <div data-testid="filter" key={ index }>
+            <span>
+              {`Filtros adicionados: ${filter.column} ${filter.comparison} ${filter.value}`}
+            </span>
+            <button
+              type="button"
+              name={ filter.column }
+              onClick={ handleRemoveFilter }
+            >
+              X
+            </button>
+          </div>
+        ))
+        : null}
     </>
   );
 }

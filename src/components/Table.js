@@ -30,9 +30,6 @@ function Table() {
             .filter((linha) => {
               const bools = [];
               selectedFilter.forEach((filter) => {
-                console.log(linha);
-                console.log(filter.column);
-                console.log(filter.value);
                 if (filter.comparison === 'igual a') {
                   bools.push(Number(linha[filter.column]) === Number(filter.value));
                 }
